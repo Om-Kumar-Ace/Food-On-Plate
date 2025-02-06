@@ -7,9 +7,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY) ;
 
 // placing user order for frontend
 const placeOrder = async (req, res) => {
-    const frontend_url = "https://food-del-frontend-x298.onrender.com/";
+    const frontend_url = "https://food-on-plate.vercel.app/";
 
-    // Validate required fields
+    
     if (!req.body.userId || !req.body.items || !req.body.amount || !req.body.address) {
         return res.status(400).json({ 
             success: false, 
