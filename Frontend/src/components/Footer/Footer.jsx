@@ -7,7 +7,7 @@ export default function Footer() {
     <div className='footer' id='footer'>
         <div className="footer-content">
             <div className="footer-content-left">
-                <img src={assets.logo} alt="" />
+                <img src={assets.logo} className='logo' alt="" />
                 <p>Lorem, ipsum dolor sit amat consectetur adipisicing elit. Omni fugs molests silique facere earum, id magni quia esse ducimus obcaecati, deleniti excepturi ullam sint sed ea neque harum non. Dignissimos?</p>
                 <div className='footer-social-icons'>
                     <img src={assets.facebook_icon} alt="" />
