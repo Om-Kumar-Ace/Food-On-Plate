@@ -30,39 +30,39 @@ export default function PlaceOrder() {
   const placeOrder = async(evt) => {
     evt.preventDefault() ;
 
-    // let orderItems = [] ;
-    // food_list.map((item) => {
-    //   if(cartItems[item._id] > 0){
-    //     let itemInfo = { ...item, quantity: cartItems[item._id] };
-    //     itemInfo["quantity"] = cartItems[item._id] ;
-    //     orderItems.push(itemInfo) ;
-    //   }
-    // })
+    let orderItems = [] ;
+    food_list.map((item) => {
+      if(cartItems[item._id] > 0){
+        let itemInfo = { ...item, quantity: cartItems[item._id] };
+        itemInfo["quantity"] = cartItems[item._id] ;
+        orderItems.push(itemInfo) ;
+      }
+    })
     
-    // let orderData = {
-    //   userId: token?.userId,
-    //   address : data,
-    //   items: orderItems,
-    //   amount: getTotalCartAmount() + 5,
-    // }
+    let orderData = {
+      userId: token?.userId,
+      address : data,
+      items: orderItems,
+      amount: getTotalCartAmount() + 5,
+    }
 
 
-    // try {
-    //   let response = await axios.post(url+'/api/order/place', orderData, {
-    //     headers: { token },
-    //   });
+    try {
+      let response = await axios.post(url+'/api/order/place', orderData, {
+        headers: { token },
+      });
     
-    //   if (response.data.success) {
-    //     const { session_url } = response.data;
-    //     window.location.replace(session_url);
-    //   } else {
-    //     console.log("An error occurred while processing your order.");
-    //     alert("Functionality Not added");
-    //   }
-    // } catch (error) {
-    //   console.error("Error placing order:", error);
-    //   alert("An error occurred while placing your order. Please try again later.");
-    // }
+      if (response.data.success) {
+        const { session_url } = response.data;
+        window.location.replace(session_url);
+      } else {
+        console.log("An error occurred while processing your order.");
+        alert("Functionality Not added");
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      alert("An error occurred while placing your order. Please try again later.");
+    }
     toast.success("Coming Soon !!") ;
   } 
 
