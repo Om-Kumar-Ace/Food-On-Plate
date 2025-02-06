@@ -1,45 +1,32 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Verify.css";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { storeContext } from "../../context/StateContext";
+import StoreContext from "../../context/StoreContext.jsx";
+import {useNavigate} from 'react-router-dom' ;
+import axios from "axios";
 
-function Verify() {
-  const [searchparam, setSearchParam] = useSearchParams();
-  const success = searchparam.get("success");
-  const orderId = searchparam.get("orderId");
-  const { errMsg, url, successMsg } = useContext(storeContext);
-  const navigate = useNavigate();
+export default function verify() {
+  const [searchParams, setSearchParams] = useState();
+  const success = searchParams.get("success");
+  const orderId = searchParams.get("orderId");
+  const { url } = useContext(StoreContext);
+  const navigate = useNavigate() ;
 
-  const paymentSuccess = async () => {
-    if (success && success === "true") {
-      let response = await fetch(`${url}/order/paymentsuccess`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "authorization": `${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({ orderId }),
-      });
-      let data = await response.json();
-      if (!data.success) {
-        errMsg(data.message);
-      }
-      successMsg("Order paced successfully!")
-      navigate("/myorders");
+  const verifyPayment = async() => {
+    const response = await axios.post(url+'/api/order/verify', {success, orderId}) ;
+    if(response.data.success){
+        navigate('/myorders') ;
+    }else{
+        navigate('/') ;
     }
-    return;
-  };
+  }
 
   useEffect(() => {
-    paymentSuccess();
-  }, []);
-
-
-  return(
-  <div className="verify">
-    <div className="loader">
+    verifyPayment() ;
+  }, []) ;
+  
+  return (
+    <div className="verify">
+      <div className="spinner"></div>
     </div>
-  </div>);
+  );
 }
-
-export default Verify;
