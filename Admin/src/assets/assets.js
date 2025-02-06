@@ -14,8 +14,8 @@ export const assets ={
     profile_image,
     upload_area,
     parcel_icon,
-    tushar2,
-    tushar
+    omkr,
+    om
 }
 
 export const url = "https://food-del-backend-w8qv.onrender.com"
